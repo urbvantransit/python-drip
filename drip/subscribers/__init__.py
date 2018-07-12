@@ -1,8 +1,9 @@
 # coding: utf8
 import requests
 
-from core import (Settings, create_obj_from_json)
-from exceptions import (AuthorizationException, AccountIdException)
+from ..core import (Settings, create_obj_from_json)
+from ..exceptions import (AuthorizationException, AccountIdException)
+
 from .schemas import CreateSuscriberSchema
 
 
@@ -27,6 +28,23 @@ class Subscribers(object):
         }
 
         response = requests.post(url, json=data, headers=self.headers)
+
+        if response.status_code == 401:
+            raise AuthorizationException
+
+        response = create_obj_from_json("subscribers", response.json())
+
+        return response
+
+    def list(self, account_id=None, email=None):
+
+        if account_id is None:
+            raise AccountIdException
+
+        url = self.settings.DRIP_BASE_URL + "{}/subscribers/{}".format(
+            account_id, email)
+
+        response = requests.get(url, headers=self.headers)
 
         if response.status_code == 401:
             raise AuthorizationException

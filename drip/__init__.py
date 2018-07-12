@@ -1,1 +1,2 @@
-from suscribers import *
+from .subscribers import *
+from .tags import *
