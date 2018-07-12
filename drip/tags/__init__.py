@@ -1,7 +1,7 @@
 # coding: utf8
 import requests
 
-from ..core import (Settings, create_obj_from_json)
+from ..core import Settings
 from ..exceptions import (AuthorizationException, AccountIdException)
 from ..subscribers import Subscribers
 
