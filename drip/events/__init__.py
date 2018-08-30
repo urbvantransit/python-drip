@@ -1,7 +1,7 @@
 # coding: utf8
 import requests
 
-from ..core import (Settings, create_obj_from_json)
+from ..core import Settings
 from ..exceptions import (AuthorizationException, AccountIdException)
 
 from .schemas import CreateEventSchema
@@ -32,6 +32,4 @@ class Events(object):
         if response.status_code == 401:
             raise AuthorizationException
 
-        response = create_obj_from_json("events", response.json())
-
-        return response
+        return response.status_code
