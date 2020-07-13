@@ -1,2 +1,2 @@
 marshmallow==2.15.3
-requests==2.19.1
+requests==2.20.0
